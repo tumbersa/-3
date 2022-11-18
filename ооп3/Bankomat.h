@@ -27,6 +27,13 @@ public:
 	*/
 	Bankomat(int idnum,long rub,unsigned char kop);
 	/*
+	<Конструктор копирования>
+	@param Bankomat* this 
+	@param Bankomat& ban - объект копирования
+	@return NULL
+	*/
+	Bankomat(const Bankomat& ban);
+	/*
 	<Сеттер баланса>
 	@param Bankomat* this
 	@param long rub - количество рублей
@@ -49,24 +56,24 @@ public:
 	string toString();
 	/*
 	<Перегруженный оператор присваивания>
-	@param * this
-	@param Bankomat* money -  объект, к которому *this присваивается
-	@return Bankomat* 
+	@param this
+	@param Bankomat& money -  объект, к которому *this присваивается
+	@return Bankomat 
 	*/
-	Bankomat* operator=(Bankomat* money);
+	Bankomat& operator=(const Bankomat& money);
 	/*
 	<Перегруженный оператор сложения>
-	@param Bankomat ban1
-	@param double l -  объект, который складывается с ban1
-	@return Bankomat* (объект класса, к которому присвоится объект, содержащий сумму)
+	@param Bankomat this
+	@param Money& money1 -  объект, который складывается с this
+	@return Bankomat (объект класса, к которому присвоится объект, содержащий сумму)
 	*/
-	friend Bankomat* operator+(Bankomat ban1, double l);
+	Bankomat operator+(Money& money1);
 	/*
 	<Перегруженный оператор вычитания>
 	@param Bankomat ban1
-	@param double l -  объект, который вычитается от ban1
-	@return Bankomat* (объект класса, к которому присвоится объект, содержащий разность)
+	@param Money& money1 -  объект, который вычитается от ban1
+	@return Bankomat (объект класса, к которому присвоится объект, содержащий разность)
 	*/
-	friend Bankomat* operator-(Bankomat ban1, double l);
+	Bankomat operator-(Money& money1);
 };
 

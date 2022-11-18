@@ -75,8 +75,8 @@ Money* Money::operator=(Money* money) {
     return this;
 }
 
-Money* operator+(Money money1, Money money2) {
-    Money* money = new Money(money1.getRub() + money2.getRub(), money1.getKop() + money2.getKop());
+Money* Money::operator+(Money& money1) {
+    Money* money = new Money(money1.getRub() + getRub(), money1.getKop() + getKop());
 
     if (money->getKop() >= 100) {
         money->setRub(money->getRub() + 1);
@@ -86,11 +86,12 @@ Money* operator+(Money money1, Money money2) {
     return money;
 }
 
-Money* operator-(Money money1, Money money2) {
-    Money* money = new Money();
+
+Money* Money::operator-(Money& money1) {
+    Money* money = new Money;
     long tempMoney;
 
-    tempMoney = (money1.getRub() * 100 + money1.getKop()) - (money2.getRub() * 100 + money2.getKop());
+    tempMoney = (getRub() * 100 + getKop()) - (money1.getRub() * 100 + money1.getKop());
 
     if (tempMoney > 0) {
         money->setRub(tempMoney / 100);
@@ -104,34 +105,10 @@ Money* operator-(Money money1, Money money2) {
     return money;
 }
 
-double operator/(Money money1, Money money2) {
-    double ruble = money1.getRub() * 100 + money1.getKop();
-    double penny = money2.getRub() * 100 + money2.getKop();
-    return ruble / penny;
-}
 
-Money* operator/(Money money, double digit) {
-    Money* money1 = new Money();
-    long tempMoney = (money.getRub() * 100 + money.getKop()) / digit;
 
-    money1->setRub(tempMoney / 100);
-    money1->setKop(tempMoney % 100);
-
-    return money1;
-}
-
-Money* operator*(Money money, double digit) {
-    Money* money1 = new Money();
-    long tempMoney = (money.getRub() * 100 + money.getKop()) * digit;
-
-    money1->setRub(tempMoney / 100);
-    money1->setKop(tempMoney % 100);
-
-    return money1;
-}
-
-bool operator==(Money money1, Money money2) {
-    if (money1.getRub() == money2.getRub() && money1.getKop() == money2.getKop()) {
+bool Money::operator==(Money& money1) {
+    if (getRub() == money1.getRub() && getKop() == money1.getKop()) {
         return true;
     }
     else {

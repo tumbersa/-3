@@ -2,11 +2,10 @@
 #include "Bankomat.h"
 int main() {
 	setlocale(LC_ALL,"Rus");
-	Bankomat tt(2000,3501,67);
-	
-	cout<<tt.toString()<<endl;
-	double l = 100.14;
-	cout << (int)l << " " << l - (int)l<<endl;
-	tt = tt + l;
-	cout << tt.toString();
+	Money m(156,77);
+	Money m1(2, 24);
+	Bankomat b(5,600,22);
+	Bankomat f(b-m);
+	f = b - m;
+	cout<<(b-m).toString();
 }

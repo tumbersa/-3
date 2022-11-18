@@ -17,7 +17,10 @@ Bankomat::Bankomat(int idnum, long rub, unsigned char kop) {
 	balance.setKop(kop);
 	balance.setRub(rub);
 }
-
+Bankomat::Bankomat(const Bankomat& ban) {
+    this->idnum=ban.idnum;
+    this->balance = ban.balance;
+};
 void Bankomat::setBalance(long rub, unsigned char kop) {
 	balance.setRub(rub);
 	balance.setKop(kop);
@@ -26,39 +29,40 @@ void Bankomat::setBalance(long rub, unsigned char kop) {
 void Bankomat::setIdnum(int idnum) {
     this->idnum = idnum;
 }
-Bankomat* Bankomat::operator=(Bankomat* money) {
-    balance.setRub(money->balance.getRub());
-    balance.setKop(money->balance.getKop());
-    return this;
+Bankomat& Bankomat::operator=(const Bankomat& money) {
+    idnum = money.idnum;
+    balance = money.balance;
+    return *this;
 };
 
 
- Bankomat* operator+(Bankomat ban1, double l) {
-    Bankomat* b=new Bankomat;
-    b->balance.setRub(ban1.balance.getRub());
-    b->balance.setKop(ban1.balance.getKop());
-    if (l >= 100 && l <= 100000) {
-        Money mm((int)l, (l-(int)l) * 100);
-        b->balance=ban1.balance + mm;
+ Bankomat Bankomat::operator+(Money& money) {
+    Bankomat b;
+    if (money.getRub() >= 100 && money.getRub() <= 100000) {
+        b.balance=balance + money;
     }
-    else cout << "wrong amount";
+    else { 
+        b.balance = balance;
+        cout << "wrong amount"<<endl; }
+    b.setIdnum(idnum);
     return b;
 };
 
-Bankomat* operator-(Bankomat ban1, double l) {
-    Bankomat* b = new Bankomat;
-    b->balance.setRub(ban1.balance.getRub());
-    b->balance.setKop(ban1.balance.getKop());
-    if (l > ban1.balance.getRub() + ban1.balance.getKop() / 100) {
-        cout << "not enough money";
-    }
-    else if (l >= 100 && l <= 100000) {
-        Money mm((int)l, (l - (int)l) * 100);
-        b->balance = ban1.balance - mm;
-    }
-    else cout << "wrong amount";
-    return b;
-};
+ Bankomat Bankomat::operator-(Money& money) {
+     Bankomat b;
+     if (money.getRub()>balance.getRub() || money.getRub()==balance.getRub() && money.getKop()<balance.getKop()) {
+                 cout << "not enough money";
+             }
+             else if (money.getRub() >= 100 && money.getRub() <= 100000) {
+                 b.balance =balance - money;
+             }
+             else {
+         b.balance = balance;
+         cout << "wrong amount" << endl;
+            }
+     b.setIdnum(idnum);
+     return b;
+ };
 
 
 string Bankomat::toString() {
@@ -76,7 +80,7 @@ string Bankomat::toString() {
     long tempRub;
     unsigned char kop = this->balance.getKop();
     unsigned char tempKop;
-    int size;
+    size_t size;
 
     vector<long> digits;
 

@@ -70,47 +70,26 @@ public:
     */
     Money* operator=(Money* money);
     /*
-    <Перегруженный оператор суммы>
-    @param Money money1 - слагаемое
-    @param Money money2 - слагаемое
-    @return Money* (объект класса, к которому присвоится объект, содержащий сумму)
-    */
-    friend Money* operator+(Money money1, Money money2);
+   <Перегруженный оператор суммы>
+   @param Money this - слагаемое
+   @param Money money1 - слагаемое
+   @return Money* (объект класса, к которому присвоится объект, содержащий сумму)
+   */
+    Money* operator+(Money& money1);
     /*
     <Перегруженный оператор вычитания>
     @param Money money1 - уменьшаемое
     @param Money money2 - вычитаемое
     @return Money* (объект класса, к которому присвоится объект, содержащий разность)
     */
-    friend Money* operator-(Money money1, Money money2);
-    /*
-    <Перегруженный оператор деления>
-    @param Money money1 - числитель
-    @param Money money2 - знаменатель
-    @return double - частное
-    */
-    friend double operator/(Money money1, Money money2);
-    /*
-    <Перегруженный оператор деления>
-    @param Money money1 - числитель
-    @param double digit - знаменатель
-    @return Money* - частное
-    */
-    friend Money* operator/(Money money1, double digit);
-    /*
-    <Перегруженный оператор умножения>
-    @param Money money1 - множитель
-    @param double digit - множитель
-    @return Money* - произведение
-    */
-    friend Money* operator*(Money money1, double digit);
+    Money* operator-(Money& money1);
     /*
     <Перегруженный оператор равенства>
-    @param Money money1
+    @param Money this
     @param Money money2 -  объект, с которым сравнивается *this
     @return bool (значение, показывающее результат логического оператора)
     */
-    friend bool operator==(Money money1, Money money2);
+    bool operator==(Money& money1);
     /*
     <Дружественный, перегруженный оператор вывода>
     @param ostream& os - поток, в который записываются данные
